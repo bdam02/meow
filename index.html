@@ -13,96 +13,53 @@
   --text: #e5e7eb;
   --muted: #9ca3af;
   --accent: #6366f1;
+  --accent-soft: rgba(99,102,241,0.15);
 }
 
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+* { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-body {
-  margin: 0;
-  background: linear-gradient(180deg, #0b0f19, #020617);
-  color: var(--text);
-}
+body { margin: 0; background: linear-gradient(180deg, #0b0f19, #020617); color: var(--text); }
 
 /* NAVBAR */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(2, 6, 23, 0.85);
-  backdrop-filter: blur(10px);
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(2,6,23,0.85); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   padding: 18px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
 }
-
 nav strong { font-size: 1.1rem; }
-
-nav a {
-  color: var(--muted);
-  margin-left: 24px;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
+nav a { color: var(--muted); margin-left: 24px; text-decoration: none; transition: color 0.2s; }
 nav a:hover { color: var(--text); }
 
 /* LAYOUT */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 100px 24px;
-}
+.container { max-width: 1100px; margin: auto; padding: 100px 24px; }
 
 /* HERO */
 .hero { text-align: center; padding-top: 80px; }
-.hero h1 { font-size: clamp(2.6rem, 5vw, 3.6rem); margin-bottom: 18px; opacity:0; transform: translateY(40px); transition: all 1s ease; }
-.hero p { color: var(--muted); max-width: 640px; margin:auto; font-size:1.1rem; opacity:0; transform: translateY(40px); transition: all 1s ease 0.3s; }
-.hero button { margin-top: 36px; padding:16px 36px; font-size:1rem; background:var(--accent); border:none; border-radius:14px; color:white; cursor:pointer; opacity:0; transform: translateY(40px); transition: all 1s ease 0.6s; }
+.hero h1, .hero p, .hero button { opacity:0; transform: translateY(40px); transition: all 1s ease; }
+.hero h1 { font-size: clamp(2.6rem, 5vw, 3.6rem); margin-bottom: 18px; }
+.hero p { color: var(--muted); max-width:640px; margin:auto; font-size:1.1rem; transition-delay:0.3s; }
+.hero button { margin-top:36px; padding:16px 36px; font-size:1rem; background:var(--accent); border:none; border-radius:14px; color:white; cursor:pointer; transition-delay:0.6s; }
 
 /* FEATURES */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 26px;
-}
-
-.card {
-  background: var(--surface);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:28px;
-  transition: transform 0.3s, box-shadow 0.3s, opacity 1s ease, transform 1s ease;
-  opacity:0;
-  transform: translateY(40px);
-}
-
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:26px; margin-top:40px; }
+.card { background: var(--surface); border:1px solid var(--border); border-radius:18px; padding:28px; cursor:pointer; opacity:0; transform:translateY(40px); transition: all 0.8s ease; }
 .card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
-
-.card p { color: var(--muted); font-size:0.95rem; }
+.card p { color: var(--muted); font-size:0.95rem; margin-bottom:0; }
+.card .detail { display:none; color: var(--accent); margin-top:10px; opacity:0; transition: opacity 0.5s ease; }
 
 /* ABOUT */
-.about {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap:50px;
-}
-
-.about p { color: var(--muted); opacity:0; transform: translateY(40px); transition: all 1s ease; }
+.about { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:50px; }
+.about p { color: var(--muted); opacity:0; transform:translateY(40px); transition: all 1s ease; }
 
 /* FOOTER */
-footer { border-top:1px solid var(--border); padding:30px; text-align:center; color:var(--muted); font-size:0.9rem; opacity:0; transform: translateY(40px); transition: all 1s ease; }
+footer { border-top:1px solid var(--border); padding:30px; text-align:center; color:var(--muted); font-size:0.9rem; opacity:0; transform:translateY(40px); transition: all 1s ease; }
 
-/* VISIBLE CLASS */
-.visible { opacity:1 !important; transform: translateY(0) !important; }
+/* VISIBLE */
+.visible { opacity:1 !important; transform:translateY(0) !important; }
 </style>
 </head>
 
@@ -125,11 +82,22 @@ footer { border-top:1px solid var(--border); padding:30px; text-align:center; co
 
 <section class="container" id="features">
   <h2 class="reveal">Features</h2>
-
   <div class="grid">
-    <div class="card"> <h3>Elegant Design</h3><p>Minimal, modern layouts inspired by real-world products.</p></div>
-    <div class="card"> <h3>Smooth Interactions</h3><p>Subtle animations that enhance user experience.</p></div>
-    <div class="card"> <h3>Responsive</h3><p>Optimized for all screen sizes and devices.</p></div>
+    <div class="card" onclick="toggleDetail(this)">
+      <h3>Elegant Design</h3>
+      <p>Minimal, modern layouts inspired by real-world products.</p>
+      <p class="detail">More details: Inspired by Apple, Vercel, Stripe.</p>
+    </div>
+    <div class="card" onclick="toggleDetail(this)">
+      <h3>Smooth Interactions</h3>
+      <p>Subtle animations that enhance user experience.</p>
+      <p class="detail">More details: Transitions, fades, and reveal on scroll.</p>
+    </div>
+    <div class="card" onclick="toggleDetail(this)">
+      <h3>Responsive</h3>
+      <p>Optimized for all screen sizes and devices.</p>
+      <p class="detail">More details: Works perfectly on mobile, tablet, and desktop.</p>
+    </div>
   </div>
 </section>
 
@@ -141,20 +109,33 @@ footer { border-top:1px solid var(--border); padding:30px; text-align:center; co
 <footer>© 2026 Nova Project. All rights reserved.</footer>
 
 <script>
-/* Reveal all sections smoothly */
-const revealElements = document.querySelectorAll('h1, p, button, .card, .about p, footer, h2');
+// Scroll smooth (already handled by HTML scroll-behavior)
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+// Reveal animations on scroll
+const revealElements = document.querySelectorAll('h1, p, button, .card, .about p, footer, h2');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
     if(entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, {threshold:0.1});
+},{threshold:0.1});
+revealElements.forEach(el=>observer.observe(el));
 
-revealElements.forEach(el => observer.observe(el));
+// Toggle card detail
+function toggleDetail(card){
+  const detail = card.querySelector(".detail");
+  if(detail.style.display==="block"){
+    detail.style.opacity=0;
+    setTimeout(()=>{ detail.style.display="none"; },500);
+  } else {
+    detail.style.display="block";
+    setTimeout(()=>{ detail.style.opacity=1; },50);
+  }
+}
 </script>
 
 </body>
 </html>
+
 
 
 
