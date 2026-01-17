@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nova Project</title>
+<title>Nova — Modern Web Project</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -13,11 +13,16 @@
   --text: #e5e7eb;
   --muted: #9ca3af;
   --accent: #6366f1;
+  --accent-soft: rgba(99,102,241,0.15);
 }
 
 * {
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,12 +31,13 @@ body {
   color: var(--text);
 }
 
-/* Navbar */
+/* NAVBAR */
 nav {
   position: sticky;
   top: 0;
-  background: rgba(2, 6, 23, 0.8);
-  backdrop-filter: blur(8px);
+  z-index: 10;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   padding: 18px 32px;
   display: flex;
@@ -53,38 +59,38 @@ nav a:hover {
   color: var(--text);
 }
 
-/* Layout */
+/* LAYOUT */
 .container {
   max-width: 1100px;
   margin: auto;
-  padding: 80px 24px;
+  padding: 90px 24px;
 }
 
-/* Hero */
+/* HERO */
 .hero {
   text-align: center;
-  padding-top: 60px;
+  padding-top: 70px;
 }
 
 .hero h1 {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  margin-bottom: 16px;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  margin-bottom: 18px;
 }
 
 .hero p {
   color: var(--muted);
-  max-width: 600px;
+  max-width: 620px;
   margin: auto;
   font-size: 1.1rem;
 }
 
 .hero button {
-  margin-top: 32px;
-  padding: 14px 30px;
+  margin-top: 36px;
+  padding: 15px 34px;
   font-size: 1rem;
   background: var(--accent);
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   color: white;
   cursor: pointer;
 }
@@ -93,19 +99,24 @@ nav a:hover {
   opacity: 0.9;
 }
 
-/* Features */
+/* FEATURES */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  margin-top: 60px;
+  gap: 26px;
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 18px;
+  padding: 26px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
 .card h3 {
@@ -117,25 +128,72 @@ nav a:hover {
   font-size: 0.95rem;
 }
 
-/* About */
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.stat {
+  background: var(--accent-soft);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat strong {
+  font-size: 1.6rem;
+}
+
+/* ABOUT */
 .about {
-  margin-top: 100px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
+  gap: 50px;
 }
 
 .about p {
   color: var(--muted);
 }
 
-/* Footer */
+/* FOOTER */
 footer {
   border-top: 1px solid var(--border);
   padding: 30px;
   text-align: center;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content button {
+  margin-top: 20px;
+  padding: 12px 26px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -145,61 +203,69 @@ footer {
 <nav>
   <strong>Nova</strong>
   <div>
-    <a href="#">Home</a>
-    <a href="#">Features</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#about">About</a>
   </div>
 </nav>
 
-<section class="container hero">
-  <h1>Build smarter digital projects</h1>
+<section class="container hero" id="home">
+  <h1>Build modern web experiences</h1>
   <p>
-    Nova is a modern platform concept designed to showcase clean interfaces,
-    performance, and simplicity.
+    Nova is a modern website concept designed to showcase clean UI,
+    smooth interactions, and real-world structure.
   </p>
-  <button>Get Started</button>
+  <button onclick="openModal()">Get Started</button>
 </section>
 
-<section class="container">
+<section class="container" id="features">
+  <h2>Features</h2>
+
   <div class="grid">
     <div class="card">
-      <h3>Modern Design</h3>
-      <p>
-        Clean layouts, smooth spacing, and a professional look inspired by real-world products.
-      </p>
+      <h3>Modern UI</h3>
+      <p>Clean, professional interface inspired by real products.</p>
     </div>
-
     <div class="card">
-      <h3>Fast & Lightweight</h3>
-      <p>
-        Built with simple HTML and CSS for instant loading and great performance.
-      </p>
+      <h3>Smooth UX</h3>
+      <p>Animations and interactions that feel natural.</p>
     </div>
-
     <div class="card">
       <h3>Responsive</h3>
-      <p>
-        Works perfectly on desktop, tablet, and mobile devices.
-      </p>
+      <p>Optimized for desktop, tablet, and mobile devices.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong>99.9%</strong>
+      <div>Uptime</div>
+    </div>
+    <div class="stat">
+      <strong>Fast</strong>
+      <div>Performance</div>
+    </div>
+    <div class="stat">
+      <strong>Secure</strong>
+      <div>Design</div>
     </div>
   </div>
 </section>
 
-<section class="container about">
+<section class="container about" id="about">
   <div>
-    <h2>About this project</h2>
+    <h2>About Nova</h2>
     <p>
-      This website is a demonstration of a modern, realistic web interface.
-      It can be used as a portfolio, project landing page, or base for a real product.
+      This project demonstrates how a real modern website is structured.
+      It can be used as a portfolio, landing page, or learning base.
     </p>
   </div>
 
   <div>
-    <h2>Why Nova?</h2>
+    <h2>Built for learning</h2>
     <p>
-      Simple structure, professional design, and easy customization make this
-      project a strong foundation for learning or launching ideas.
+      Simple HTML, CSS, and JavaScript — no frameworks — making it perfect
+      for understanding how real websites work.
     </p>
   </div>
 </section>
@@ -208,5 +274,25 @@ footer {
   © 2026 Nova Project. All rights reserved.
 </footer>
 
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Welcome to Nova</h3>
+    <p>This is a demo project. You can customize it however you want.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+function openModal() {
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
 </body>
 </html>
+
