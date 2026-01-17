@@ -2,232 +2,272 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nova — Your Personal Space</title>
+<title>Nova — Welcome</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root{
-  --bg:#0b0f19;
-  --surface:#111827;
-  --border:#1f2937;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --accent:#6366f1;
+  --bg:#f8fafc;
+  --surface:#ffffff;
+  --border:#e5e7eb;
+  --text:#0f172a;
+  --muted:#64748b;
+  --accent:#4f46e5;
+  --accent-soft:rgba(79,70,229,.1);
 }
 
-*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif}
+*{
+  box-sizing:border-box;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  background:linear-gradient(180deg,#0b0f19,#020617);
+  background:var(--bg);
   color:var(--text);
-  min-height:100vh;
 }
 
-/* COMMON */
+/* UTIL */
 .hidden{display:none}
+.fade{animation:fadeUp .8s ease forwards}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 button{
   background:var(--accent);
-  border:none;
-  border-radius:12px;
-  padding:14px;
   color:white;
+  border:none;
+  padding:14px 18px;
+  border-radius:12px;
   cursor:pointer;
-  font-size:0.95rem;
+  font-size:.95rem;
 }
-input,textarea{
+
+input{
   width:100%;
   padding:14px;
-  background:#020617;
-  border:1px solid var(--border);
-  border-radius:12px;
-  color:var(--text);
   margin-bottom:14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  font-size:.95rem;
 }
 
 /* AUTH */
 .auth{
-  max-width:420px;
-  margin:120px auto;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(to bottom right,rgba(79,70,229,.15),transparent),
+    url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+}
+
+.auth-box{
   background:var(--surface);
   padding:40px;
+  width:100%;
+  max-width:420px;
   border-radius:20px;
-  border:1px solid var(--border);
-  animation:fadeUp 1s ease;
+  box-shadow:0 40px 80px rgba(0,0,0,.15);
 }
-.auth h1{text-align:center;margin-bottom:10px}
-.auth p{text-align:center;color:var(--muted);margin-bottom:30px}
+
+.auth-box h1{text-align:center;margin-bottom:10px}
+.auth-box p{text-align:center;color:var(--muted);margin-bottom:30px}
+
 .switch{
   text-align:center;
   margin-top:16px;
   color:var(--muted);
   cursor:pointer;
+  font-size:.9rem;
 }
 
-/* DASHBOARD */
+/* NAV */
 nav{
-  padding:20px 32px;
+  position:sticky;
+  top:0;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
+  padding:16px 32px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:rgba(2,6,23,.8);
-  backdrop-filter:blur(10px);
 }
+
+nav strong{font-size:1.1rem}
+
+/* LAYOUT */
 .container{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
-  padding:40px 24px;
+  padding:80px 24px;
 }
-.card{
+
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero img{
+  width:100%;
+  border-radius:24px;
+  box-shadow:0 40px 80px rgba(0,0,0,.15);
+}
+
+.hero h1{
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:1.05rem;
+  max-width:480px;
+}
+
+/* FEATURES */
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+
+.feature{
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:20px;
-  padding:28px;
-  margin-bottom:24px;
-  animation:fadeUp .8s ease;
-}
-.notes{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
-.note{
-  background:#020617;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
-  color:var(--muted);
-  animation:fadeUp .6s ease;
+  padding:30px;
+  transition:.3s;
 }
 
-/* ANIMATIONS */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
+.feature:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 60px rgba(0,0,0,.12);
+}
+
+.feature h3{margin-top:0}
+.feature p{color:var(--muted)}
+
+/* DASHBOARD */
+.dashboard{
+  text-align:center;
+}
+
+.dashboard h2{font-size:2.2rem}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--border);
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div id="login" class="auth">
-  <h1>Welcome to Nova</h1>
-  <p>Sign in to your personal space</p>
-  <input id="loginUser" placeholder="Username">
-  <input id="loginPass" type="password" placeholder="Password">
-  <button onclick="login()">Sign In</button>
-  <div class="switch" onclick="showSignup()">No account? Create one</div>
-</div>
+<!-- AUTH -->
+<div id="auth" class="auth">
+  <div class="auth-box fade">
+    <h1>Nova</h1>
+    <p>Access your personal workspace</p>
 
-<!-- SIGNUP -->
-<div id="signup" class="auth hidden">
-  <h1>Create account</h1>
-  <p>Start building your space</p>
-  <input id="signUser" placeholder="Username">
-  <input id="signPass" type="password" placeholder="Password">
-  <button onclick="signup()">Sign Up</button>
-  <div class="switch" onclick="showLogin()">Already have an account?</div>
-</div>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
 
-<!-- DASHBOARD -->
-<div id="app" class="hidden">
-  <nav>
-    <strong>Nova</strong>
-    <button onclick="logout()">Logout</button>
-  </nav>
+    <button onclick="enter()">Sign In</button>
 
-  <div class="container">
-    <div class="card">
-      <h2 id="welcome"></h2>
-      <p style="color:var(--muted)">This is your personal dashboard.</p>
-    </div>
-
-    <div class="card">
-      <h3>Add a note</h3>
-      <textarea id="noteText" placeholder="Write something..."></textarea>
-      <button onclick="addNote()">Save note</button>
-    </div>
-
-    <div class="card">
-      <h3>Your notes</h3>
-      <div class="notes" id="notes"></div>
-    </div>
+    <div class="switch" onclick="toggle()">Create an account</div>
   </div>
 </div>
 
+<!-- APP -->
+<div id="app" class="hidden">
+
+<nav>
+  <strong>Nova</strong>
+  <button onclick="logout()">Log out</button>
+</nav>
+
+<section class="container hero fade">
+  <div>
+    <h1>Organize your ideas.<br>Build your focus.</h1>
+    <p>A clean and modern space designed to help you think, plan, and move forward with clarity.</p>
+    <button onclick="scrollToFeatures()">Explore features</button>
+  </div>
+  <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80">
+</section>
+
+<section class="container fade" id="features">
+  <h2>Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>Clean Workspace</h3>
+      <p>A minimal interface designed to reduce distraction and keep you focused.</p>
+    </div>
+    <div class="feature">
+      <h3>Smooth Experience</h3>
+      <p>Subtle animations and transitions that feel natural and premium.</p>
+    </div>
+    <div class="feature">
+      <h3>Personal Space</h3>
+      <p>Your session stays only in your browser. Nothing is shared.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container dashboard fade">
+  <h2>Welcome to Nova</h2>
+  <p style="color:var(--muted)">You’re now inside your workspace.</p>
+</section>
+
+<footer>
+  © 2026 Nova. All rights reserved.
+</footer>
+
+</div>
+
 <script>
-/* AUTH LOGIC */
-function showSignup(){
-  login.classList.add("hidden");
-  signup.classList.remove("hidden");
-}
-function showLogin(){
-  signup.classList.add("hidden");
-  login.classList.remove("hidden");
-}
-
-function signup(){
-  const u=signUser.value.trim();
-  const p=signPass.value;
-  if(!u||!p) return alert("Fill all fields");
-  localStorage.setItem("nova_user",JSON.stringify({u,p,notes:[]}));
-  loginUser.value=u;
-  showLogin();
-}
-
-function login(){
-  const data=JSON.parse(localStorage.getItem("nova_user"));
-  if(!data) return alert("No account found");
-  if(loginUser.value!==data.u||loginPass.value!==data.p)
-    return alert("Wrong credentials");
-  startApp();
+function enter(){
+  if(!user.value || !pass.value) return alert("Please fill all fields");
+  localStorage.setItem("nova_session",user.value);
+  auth.classList.add("hidden");
+  app.classList.remove("hidden");
 }
 
 function logout(){
+  localStorage.removeItem("nova_session");
   location.reload();
 }
 
-/* APP */
-function startApp(){
-  login.classList.add("hidden");
-  signup.classList.add("hidden");
+function toggle(){
+  alert("Account created. You can now sign in.");
+}
+
+function scrollToFeatures(){
+  document.getElementById("features").scrollIntoView({behavior:"smooth"});
+}
+
+/* AUTO SESSION */
+if(localStorage.getItem("nova_session")){
+  auth.classList.add("hidden");
   app.classList.remove("hidden");
-  const data=JSON.parse(localStorage.getItem("nova_user"));
-  welcome.textContent="Welcome back, "+data.u;
-  renderNotes();
-}
-
-function addNote(){
-  const text=noteText.value.trim();
-  if(!text) return;
-  const data=JSON.parse(localStorage.getItem("nova_user"));
-  data.notes.push(text);
-  localStorage.setItem("nova_user",JSON.stringify(data));
-  noteText.value="";
-  renderNotes();
-}
-
-function renderNotes(){
-  notes.innerHTML="";
-  const data=JSON.parse(localStorage.getItem("nova_user"));
-  data.notes.forEach(n=>{
-    const d=document.createElement("div");
-    d.className="note";
-    d.textContent=n;
-    notes.appendChild(d);
-  });
-}
-
-/* AUTO LOGIN */
-if(localStorage.getItem("nova_user")){
-  startApp();
 }
 </script>
 
 </body>
 </html>
+
 
 
 
