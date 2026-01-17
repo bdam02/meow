@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nova — Premium Interactive Website</title>
+<title>Nova — Your Personal Space</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
+:root{
   --bg:#0b0f19;
   --surface:#111827;
   --border:#1f2937;
@@ -15,122 +15,220 @@
   --accent:#6366f1;
 }
 
-*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
-html{scroll-behavior:smooth;}
-body{margin:0;background:linear-gradient(180deg,#0b0f19,#020617);color:var(--text);}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#0b0f19,#020617);
+  color:var(--text);
+  min-height:100vh;
+}
 
-/* Navbar */
-nav{position:sticky;top:0;z-index:10;background:rgba(2,6,23,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:18px 32px;display:flex;justify-content:space-between;align-items:center;}
-nav strong{font-size:1.1rem;}
-nav a{color:var(--muted);margin-left:24px;text-decoration:none;transition:color 0.2s;}
-nav a:hover{color:var(--text);}
+/* COMMON */
+.hidden{display:none}
+button{
+  background:var(--accent);
+  border:none;
+  border-radius:12px;
+  padding:14px;
+  color:white;
+  cursor:pointer;
+  font-size:0.95rem;
+}
+input,textarea{
+  width:100%;
+  padding:14px;
+  background:#020617;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--text);
+  margin-bottom:14px;
+}
 
-/* Layout */
-.container{max-width:1100px;margin:auto;padding:100px 24px;}
-.hero{text-align:center;padding-top:80px;}
-.hero h1,.hero p,.hero button{opacity:0;transform:translateY(40px);transition:all 1s ease;}
-.hero h1{font-size:clamp(2.6rem,5vw,3.6rem);margin-bottom:18px;}
-.hero p{color:var(--muted);max-width:640px;margin:auto;font-size:1.1rem;transition-delay:0.3s;}
-.hero button{margin-top:36px;padding:16px 36px;font-size:1rem;background:var(--accent);border:none;border-radius:14px;color:white;cursor:pointer;transition-delay:0.6s;}
+/* AUTH */
+.auth{
+  max-width:420px;
+  margin:120px auto;
+  background:var(--surface);
+  padding:40px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  animation:fadeUp 1s ease;
+}
+.auth h1{text-align:center;margin-bottom:10px}
+.auth p{text-align:center;color:var(--muted);margin-bottom:30px}
+.switch{
+  text-align:center;
+  margin-top:16px;
+  color:var(--muted);
+  cursor:pointer;
+}
 
-/* Features */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px;margin-top:40px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px;cursor:pointer;opacity:0;transform:translateY(40px);transition:all 0.8s ease;}
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.45);}
-.card p{color:var(--muted);font-size:0.95rem;}
+/* DASHBOARD */
+nav{
+  padding:20px 32px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(2,6,23,.8);
+  backdrop-filter:blur(10px);
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 24px;
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+  margin-bottom:24px;
+  animation:fadeUp .8s ease;
+}
+.notes{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+.note{
+  background:#020617;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  color:var(--muted);
+  animation:fadeUp .6s ease;
+}
 
-/* Detail Sections */
-.detail-section{display:none;padding:40px 24px;margin-top:40px;background:var(--surface);border:1px solid var(--border);border-radius:18px;opacity:0;transition:opacity 0.8s ease,transform 0.8s ease;transform:translateY(40px);}
-.detail-section.visible{display:block;opacity:1;transform:translateY(0);}
-
-/* About & Footer */
-.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;}
-.about p{color:var(--muted);opacity:0;transform:translateY(40px);transition:all 1s ease;}
-footer{border-top:1px solid var(--border);padding:30px;text-align:center;color:var(--muted);font-size:0.9rem;opacity:0;transform:translateY(40px);transition:all 1s ease;}
-.visible{opacity:1 !important;transform:translateY(0) !important;}
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
 </style>
 </head>
+
 <body>
 
-<nav>
-  <strong>Nova</strong>
-  <div>
-    <a href="#home">Home</a>
-    <a href="#features">Features</a>
-    <a href="#about">About</a>
-  </div>
-</nav>
+<!-- LOGIN -->
+<div id="login" class="auth">
+  <h1>Welcome to Nova</h1>
+  <p>Sign in to your personal space</p>
+  <input id="loginUser" placeholder="Username">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button onclick="login()">Sign In</button>
+  <div class="switch" onclick="showSignup()">No account? Create one</div>
+</div>
 
-<section class="container hero" id="home">
-  <h1>Build premium web experiences</h1>
-  <p>Nova is a modern website designed to feel smooth, professional, and carefully crafted — like a real premium product.</p>
-  <button onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Get Started</button>
-</section>
+<!-- SIGNUP -->
+<div id="signup" class="auth hidden">
+  <h1>Create account</h1>
+  <p>Start building your space</p>
+  <input id="signUser" placeholder="Username">
+  <input id="signPass" type="password" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <div class="switch" onclick="showLogin()">Already have an account?</div>
+</div>
 
-<section class="container" id="features">
-  <h2 class="reveal">Features</h2>
-  <div class="grid">
-    <div class="card" onclick="showDetail('detail1')">
-      <h3>Elegant Design</h3>
-      <p>Minimal, modern layouts inspired by real-world products.</p>
+<!-- DASHBOARD -->
+<div id="app" class="hidden">
+  <nav>
+    <strong>Nova</strong>
+    <button onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h2 id="welcome"></h2>
+      <p style="color:var(--muted)">This is your personal dashboard.</p>
     </div>
-    <div class="card" onclick="showDetail('detail2')">
-      <h3>Smooth Interactions</h3>
-      <p>Subtle animations that enhance user experience.</p>
+
+    <div class="card">
+      <h3>Add a note</h3>
+      <textarea id="noteText" placeholder="Write something..."></textarea>
+      <button onclick="addNote()">Save note</button>
     </div>
-    <div class="card" onclick="showDetail('detail3')">
-      <h3>Responsive</h3>
-      <p>Optimized for all screen sizes and devices.</p>
+
+    <div class="card">
+      <h3>Your notes</h3>
+      <div class="notes" id="notes"></div>
     </div>
   </div>
-
-  <!-- Detail Sections -->
-  <div id="detail1" class="detail-section">
-    <h3>Elegant Design Details</h3>
-    <p>Inspired by Apple, Vercel, Stripe. Clean spacing, typography, and layout make your product look professional.</p>
-  </div>
-  <div id="detail2" class="detail-section">
-    <h3>Smooth Interactions Details</h3>
-    <p>Animations, fade-ins, and scroll reveals create a natural, premium user experience.</p>
-  </div>
-  <div id="detail3" class="detail-section">
-    <h3>Responsive Details</h3>
-    <p>Fully optimized for desktop, tablet, and mobile. Flex, grid, and media queries adapt perfectly.</p>
-  </div>
-</section>
-
-<section class="container about" id="about">
-  <div><h2>About Nova</h2><p>This project demonstrates how smooth animations, spacing, and timing create a premium web experience.</p></div>
-  <div><h2>Built with simplicity</h2><p>Pure HTML, CSS, and JavaScript — no frameworks — focused on clarity and performance.</p></div>
-</section>
-
-<footer>© 2026 Nova Project. All rights reserved.</footer>
+</div>
 
 <script>
-// Reveal on scroll
-const revealElements = document.querySelectorAll('h1, p, button, .card, .about p, footer, h2');
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('visible'); });
-},{threshold:0.1});
-revealElements.forEach(el=>observer.observe(el));
+/* AUTH LOGIC */
+function showSignup(){
+  login.classList.add("hidden");
+  signup.classList.remove("hidden");
+}
+function showLogin(){
+  signup.classList.add("hidden");
+  login.classList.remove("hidden");
+}
 
-// Show detail section for each card
-function showDetail(id){
-  const sections = ['detail1','detail2','detail3'];
-  sections.forEach(secId=>{
-    const sec = document.getElementById(secId);
-    if(secId===id){
-      sec.classList.add('visible');
-      sec.scrollIntoView({behavior:'smooth', block:'start'});
-    } else {
-      sec.classList.remove('visible');
-    }
+function signup(){
+  const u=signUser.value.trim();
+  const p=signPass.value;
+  if(!u||!p) return alert("Fill all fields");
+  localStorage.setItem("nova_user",JSON.stringify({u,p,notes:[]}));
+  loginUser.value=u;
+  showLogin();
+}
+
+function login(){
+  const data=JSON.parse(localStorage.getItem("nova_user"));
+  if(!data) return alert("No account found");
+  if(loginUser.value!==data.u||loginPass.value!==data.p)
+    return alert("Wrong credentials");
+  startApp();
+}
+
+function logout(){
+  location.reload();
+}
+
+/* APP */
+function startApp(){
+  login.classList.add("hidden");
+  signup.classList.add("hidden");
+  app.classList.remove("hidden");
+  const data=JSON.parse(localStorage.getItem("nova_user"));
+  welcome.textContent="Welcome back, "+data.u;
+  renderNotes();
+}
+
+function addNote(){
+  const text=noteText.value.trim();
+  if(!text) return;
+  const data=JSON.parse(localStorage.getItem("nova_user"));
+  data.notes.push(text);
+  localStorage.setItem("nova_user",JSON.stringify(data));
+  noteText.value="";
+  renderNotes();
+}
+
+function renderNotes(){
+  notes.innerHTML="";
+  const data=JSON.parse(localStorage.getItem("nova_user"));
+  data.notes.forEach(n=>{
+    const d=document.createElement("div");
+    d.className="note";
+    d.textContent=n;
+    notes.appendChild(d);
   });
+}
+
+/* AUTO LOGIN */
+if(localStorage.getItem("nova_user")){
+  startApp();
 }
 </script>
 
 </body>
 </html>
+
 
 
 
