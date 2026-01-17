@@ -2,62 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nova — Premium Workspace</title>
+<title>Nova — Workspace</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --bg:#f8fafc; --surface:#ffffff; --border:#e5e7eb; --text:#0f172a;
-  --muted:#64748b; --accent:#4f46e5; --accent-soft:rgba(79,70,229,.08);
-}
-[data-theme="dark"]{
-  --bg:#0b0f19; --surface:#111827; --border:#1f2937; --text:#e5e7eb;
-  --muted:#9ca3af; --accent:#6366f1; --accent-soft:rgba(99,102,241,.1);
-}
-
-*{box-sizing:border-box; font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
-html{scroll-behavior:smooth;}
-body{margin:0; background:var(--bg); color:var(--text); transition:background .3s, color .3s;}
+body{margin:0;font-family:system-ui;-apple-system,BlinkMacSystemFont,sans-serif;background:#f8fafc;color:#0f172a;}
 .hidden{display:none;}
-.fade{animation:fadeUp .8s ease forwards;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-
-button{background:var(--accent); color:white; border:none; padding:14px 20px; border-radius:14px; cursor:pointer; font-size:.95rem; transition:.25s;}
-button:hover{transform:translateY(-2px);}
-input{width:100%; padding:14px; margin-bottom:14px; border-radius:14px; border:1px solid var(--border); font-size:.95rem;}
-
-.auth{min-height:100vh; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at top left,var(--accent-soft),transparent 45%), radial-gradient(circle at bottom right,var(--accent-soft),transparent 45%);}
-.auth-box{background:var(--surface); padding:44px; width:100%; max-width:420px; border-radius:24px; box-shadow:0 40px 80px rgba(0,0,0,.12);}
-.auth-box h1{text-align:center;margin-bottom:6px}
-.auth-box p{text-align:center;color:var(--muted);margin-bottom:30px}
-.link{text-align:center;margin-top:16px;color:var(--muted);font-size:.9rem;cursor:pointer;}
-.link span{color:var(--accent);}
-
-/* NAV + Sidebar */
-nav{position:sticky; top:0; background:rgba(255,255,255,.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:16px 32px; display:flex; justify-content:space-between; align-items:center; z-index:10;}
-nav strong{font-size:1.1rem;}
-.sidebar{position:fixed; left:0; top:0; height:100vh; width:220px; background:var(--surface); border-right:1px solid var(--border); padding-top:80px; display:flex; flex-direction:column; gap:16px;}
-.sidebar button{background:transparent; color:var(--text); text-align:left; font-size:1rem; width:100%;}
-.sidebar button:hover{background:var(--accent-soft); border-radius:12px; transform:translateX(6px);}
-.main{margin-left:240px; padding:40px; max-width:1000px; transition:margin .3s;padding .3s;}
-.dark-toggle{background:var(--accent-soft); color:var(--accent); border-radius:12px; padding:6px 12px; font-size:.85rem; cursor:pointer;}
-
-/* CARDS */
-.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:26px;}
-.card{background:var(--surface); border:1px solid var(--border); border-radius:22px; padding:30px; transition:.35s;}
-.card:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(0,0,0,.12);}
-.card p{color:var(--muted);}
-
-/* FOOTER */
-footer{padding:40px; text-align:center; color:var(--muted); border-top:1px solid var(--border);}
+.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.auth-box{background:#fff;padding:40px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);width:100%;max-width:400px;}
+.auth-box h1{text-align:center;margin-bottom:10px;}
+.auth-box p{text-align:center;color:#64748b;margin-bottom:20px;}
+input{width:100%;padding:12px;margin-bottom:12px;border-radius:12px;border:1px solid #e5e7eb;font-size:0.95rem;}
+button{width:100%;padding:12px;border:none;border-radius:12px;background:#4f46e5;color:white;font-size:1rem;cursor:pointer;}
+.link{text-align:center;margin-top:10px;color:#64748b;cursor:pointer;}
+.link span{color:#4f46e5;}
 </style>
 </head>
 <body>
 
-<!-- AUTH LOGIN -->
+<!-- LOGIN -->
 <div id="login" class="auth">
-  <div class="auth-box fade">
-    <h1>Welcome back</h1>
+  <div class="auth-box">
+    <h1>Login</h1>
     <p>Sign in to your workspace</p>
     <input id="loginUser" placeholder="Username">
     <input id="loginPass" type="password" placeholder="Password">
@@ -66,11 +32,11 @@ footer{padding:40px; text-align:center; color:var(--muted); border-top:1px solid
   </div>
 </div>
 
-<!-- AUTH SIGN UP -->
+<!-- SIGN UP -->
 <div id="signup" class="auth hidden">
-  <div class="auth-box fade">
-    <h1>Create account</h1>
-    <p>Choose a username and password</p>
+  <div class="auth-box">
+    <h1>Sign Up</h1>
+    <p>Create your workspace account</p>
     <input id="signUser" placeholder="Username">
     <input id="signPass" type="password" placeholder="Password">
     <button onclick="signup()">Create account</button>
@@ -80,119 +46,60 @@ footer{padding:40px; text-align:center; color:var(--muted); border-top:1px solid
 
 <!-- APP -->
 <div id="app" class="hidden">
-<nav>
-  <strong>Nova</strong>
-  <div>
-    <button class="dark-toggle" onclick="toggleTheme()">Toggle Dark</button>
-    <button onclick="logout()">Log out</button>
-  </div>
-</nav>
-
-<div class="sidebar fade">
-  <button onclick="showSection('dashboard')">Dashboard</button>
-  <button onclick="showSection('profile')">Profile</button>
-  <button onclick="showSection('features')">Features</button>
-</div>
-
-<div class="main">
-  <!-- Dashboard -->
-  <div id="dashboard" class="section fade">
-    <h1>Dashboard</h1>
-    <p style="color:var(--muted)">Welcome to your workspace. Everything is local and private.</p>
-    <div class="grid">
-      <div class="card"><h3>Focus</h3><p>Minimal interface to stay productive.</p></div>
-      <div class="card"><h3>Smooth Animations</h3><p>Subtle, premium feel on hover and scroll.</p></div>
-      <div class="card"><h3>Local Storage</h3><p>Your username and password are stored only in this browser.</p></div>
-    </div>
-  </div>
-
-  <!-- Profile -->
-  <div id="profile" class="section fade hidden">
-    <h1>Profile</h1>
-    <p>Change your username or password:</p>
-    <input id="profileUser" placeholder="Username">
-    <input id="profilePass" type="password" placeholder="Password">
-    <button onclick="updateProfile()">Save</button>
-  </div>
-
-  <!-- Features -->
-  <div id="features" class="section fade hidden">
-    <h1>Features</h1>
-    <div class="grid">
-      <div class="card"><h3>Dark / Light Mode</h3><p>Switch instantly between themes.</p></div>
-      <div class="card"><h3>Sidebar Navigation</h3><p>Easy access to all sections of your workspace.</p></div>
-      <div class="card"><h3>Interactive Cards</h3><p>Cards animate smoothly when hovered or scrolled into view.</p></div>
-    </div>
-  </div>
-</div>
-
-<footer>© 2026 Nova — Premium Workspace</footer>
+  <h1>Welcome to Nova!</h1>
+  <p>You are logged in locally.</p>
 </div>
 
 <script>
-/* PAGE SWITCH */
-function showSignup(){ login.classList.add("hidden"); signup.classList.remove("hidden"); }
-function showLogin(){ signup.classList.add("hidden"); login.classList.remove("hidden"); }
+// Affiche la page Sign Up
+function showSignup(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('signup').classList.remove('hidden');
+}
 
-/* ACCOUNT LOGIC */
+// Retour au Login
+function showLogin(){
+  document.getElementById('signup').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+}
+
+// Crée le compte local
 function signup(){
-  const u=signUser.value.trim();
-  const p=signPass.value;
-  if(!u||!p){ alert("Enter username & password"); return;}
-  localStorage.setItem("nova_account",JSON.stringify({u,p}));
-  alert("Account created. Now sign in.");
+  const u = document.getElementById('signUser').value.trim();
+  const p = document.getElementById('signPass').value;
+  if(!u || !p){ alert("Enter username & password"); return; }
+  localStorage.setItem('nova_account', JSON.stringify({u,p}));
+  alert("Account created. Now sign in!");
   showLogin();
 }
 
+// Login local
 function login(){
-  const data=JSON.parse(localStorage.getItem("nova_account"));
-  if(!data){ alert("No account found. Please create one."); return;}
-  if(loginUser.value!==data.u||loginPass.value!==data.p){ alert("Incorrect username or password"); return;}
-  localStorage.setItem("nova_session","active");
-  startApp();
-}
-
-function logout(){ localStorage.removeItem("nova_session"); location.reload(); }
-
-function startApp(){
-  login.classList.add("hidden"); signup.classList.add("hidden"); app.classList.remove("hidden");
-  const data=JSON.parse(localStorage.getItem("nova_account"));
-  profileUser.value = data.u; profilePass.value = data.p;
-}
-
-/* PROFILE UPDATE */
-function updateProfile(){
-  const u = profileUser.value.trim();
-  const p = profilePass.value;
-  if(!u||!p){ alert("Fill both fields"); return;}
-  localStorage.setItem("nova_account",JSON.stringify({u,p}));
-  alert("Profile updated");
-}
-
-/* THEME */
-function toggleTheme(){
-  if(document.documentElement.getAttribute("data-theme")==="dark"){
-    document.documentElement.removeAttribute("data-theme");
-    localStorage.setItem("nova_theme","light");
-  }else{
-    document.documentElement.setAttribute("data-theme","dark");
-    localStorage.setItem("nova_theme","dark");
+  const data = JSON.parse(localStorage.getItem('nova_account'));
+  if(!data){ alert("No account found. Please sign up."); return; }
+  if(document.getElementById('loginUser').value !== data.u || document.getElementById('loginPass').value !== data.p){
+    alert("Incorrect username or password"); return;
   }
+  localStorage.setItem('nova_session','active');
+  showApp();
 }
 
-/* SECTION SWITCH */
-function showSection(id){
-  document.querySelectorAll(".section").forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
+// Affiche l'app après login
+function showApp(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('signup').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
 }
 
-/* AUTO LOGIN + THEME */
-if(localStorage.getItem("nova_session")) startApp();
-if(localStorage.getItem("nova_theme")==="dark") document.documentElement.setAttribute("data-theme","dark");
+// Auto login si session active
+if(localStorage.getItem('nova_session')){
+  showApp();
+}
 </script>
 
 </body>
 </html>
+
 
 
 
