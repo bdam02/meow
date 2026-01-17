@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nova Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --bg: #0b0f19;
+  --surface: #111827;
+  --border: #1f2937;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #6366f1;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #0b0f19, #020617);
+  color: var(--text);
+}
+
+/* Navbar */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav strong {
+  font-size: 1.1rem;
+}
+
+nav a {
+  color: var(--muted);
+  margin-left: 24px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--text);
+}
+
+/* Layout */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 80px 24px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding-top: 60px;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 16px;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 600px;
+  margin: auto;
+  font-size: 1.1rem;
+}
+
+.hero button {
+  margin-top: 32px;
+  padding: 14px 30px;
+  font-size: 1rem;
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+}
+
+.hero button:hover {
+  opacity: 0.9;
+}
+
+/* Features */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* About */
+.about {
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.about p {
+  color: var(--muted);
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <strong>Nova</strong>
+  <div>
+    <a href="#">Home</a>
+    <a href="#">Features</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<section class="container hero">
+  <h1>Build smarter digital projects</h1>
+  <p>
+    Nova is a modern platform concept designed to showcase clean interfaces,
+    performance, and simplicity.
+  </p>
+  <button>Get Started</button>
+</section>
+
+<section class="container">
+  <div class="grid">
+    <div class="card">
+      <h3>Modern Design</h3>
+      <p>
+        Clean layouts, smooth spacing, and a professional look inspired by real-world products.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Fast & Lightweight</h3>
+      <p>
+        Built with simple HTML and CSS for instant loading and great performance.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Responsive</h3>
+      <p>
+        Works perfectly on desktop, tablet, and mobile devices.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="container about">
+  <div>
+    <h2>About this project</h2>
+    <p>
+      This website is a demonstration of a modern, realistic web interface.
+      It can be used as a portfolio, project landing page, or base for a real product.
+    </p>
+  </div>
+
+  <div>
+    <h2>Why Nova?</h2>
+    <p>
+      Simple structure, professional design, and easy customization make this
+      project a strong foundation for learning or launching ideas.
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2026 Nova Project. All rights reserved.
+</footer>
+
+</body>
+</html>
